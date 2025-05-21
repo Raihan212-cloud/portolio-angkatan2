@@ -1,3 +1,18 @@
+<?php
+include 'config/koneksi.php';
+
+$query = mysqli_query($config, 'SELECT * FROM users ORDER BY id DESC');
+$row = mysqli_fetch_all($query, MYSQLI_ASSOC);
+// print_r($row);
+// die;
+if (isset($_GET['delete'])) {
+    $id = $_GET['delete'];
+    $query = mysqli_query($config, "DELETE FROM users WHERE id = '$id'");
+    header("location:user.php?hapus=berhasil");
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,49 +27,14 @@
 
 <body>
     <div class="wrapper">
-        <header class="shadow">
-            <nav class="navbar navbar-expand-lg bg-light">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="#">Portofolio Rey</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                                </li>
-
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Page
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="user.php">User</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            </nav>
-        </header>
+        <?php include 'config/koneksi.php'; ?>
         <div class="content mt-5">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                Dashboard
+                                Data user
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -71,15 +51,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Raihan Adliansyah</td>
-                                                <td>capsrey106@gmail.com</td>
-                                                <td>
-                                                    <a href="" class="btn btn-success btn-sm">Edit</a>
-                                                    <a onclick="return confirm('Are You Sure??')" class="btn btn-warning btn-sm">Delete</a>
-                                                </td>
-                                            </tr>
+                                            <?php foreach ($row as $key => $data): ?>
+                                                <tr>
+                                                    <td><?= $key + 1 ?></td>
+                                                    <td><?= $data['name'] ?></td>
+                                                    <td><?= $data['email'] ?></td>
+                                                    <td>
+                                                        <a href="tambah-user.php?edit=<?php echo $data['id'] ?>" class="btn btn-success btn-sm">Edit</a>
+                                                        <a onclick="return confirm('Are You Sure??')"
+                                                            href="user.php?delete=<?php echo $data['id'] ?>" class="btn btn-warning btn-sm">Delete</a>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach ?>
                                         </tbody>
                                     </table>
                                 </div>
