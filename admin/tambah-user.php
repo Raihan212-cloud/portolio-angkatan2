@@ -44,40 +44,48 @@ if (isset($_POST['edit'])) {
 
 <body>
     <div class="wrapper">
+        <?php include 'inc/header.php'; ?>
         <header class="shadow">
-            <nav class="navbar navbar-expand-lg bg-light">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="#">Portofolio Rey</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                                </li>
+            <nav class="navbar navbar-expand-lg bg-body-white">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="#">CMS Reza</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            </li>
 
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Page
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                    </ul>
-                                </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Page
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                </ul>
+                            </li>
+                            <?php
+                            $decrypt = base64_decode($_GET['level']);
+                            if (isset($_GET['level']) && $decrypt == 1) {
+                            ?>
                                 <li class="nav-item">
                                     <a class="nav-link" href="user.php">User</a>
                                 </li>
-                            </ul>
-                        </div>
+                            <?php
+                            }
+                            ?>
+
+                        </ul>
+
                     </div>
-                </nav>
+                </div>
             </nav>
         </header>
         <div class="content mt-5">
@@ -95,7 +103,9 @@ if (isset($_POST['edit'])) {
                                             <label for="">Nama * </label>
                                         </div>
                                         <div class="col-sm-10">
-                                            <input required name="name" type="text" class="form-control" placeholder="Masukan Nama Anda" value="<?php echo $rowEdit['name']; ?>">
+                                            <input required name="name" type="text" class="form-control"
+                                                placeholder="Masukan Nama Anda"
+                                                value="<?= isset($_GET['edit']) ? $rowEdit['name'] : '' ?>">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -103,7 +113,9 @@ if (isset($_POST['edit'])) {
                                             <label for="">Email * </label>
                                         </div>
                                         <div class="col-sm-10">
-                                            <input required name="email" type="email" class="form-control" placeholder="Masukan email anda" value="<?= $rowEdit['email']; ?>">
+                                            <input required name="email" type="email" class="form-control"
+                                                placeholder="Masukan email anda"
+                                                value="<?= isset($_GET['edit']) ? $rowEdit['email'] : '' ?>">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
@@ -111,12 +123,14 @@ if (isset($_POST['edit'])) {
                                             <label for="">Password * </label>
                                         </div>
                                         <div class="col-sm-10">
-                                            <input required name="password" type="password" class="form-control" placeholder="Masukan password anda">
+                                            <input required name="password" type="password"
+                                                class="form-control" placeholder="Masukan password anda">
                                         </div>
                                     </div>
                                     <div class="mb-3 row">
                                         <div class="col-sm-12">
-                                            <button name="<?= isset($_GET['edit']) ? 'edit' : 'simpan'; ?>" type="submit" class="btn btn-primary">Simpan</button>
+                                            <button name="<?= isset($_GET['edit']) ? 'edit' : 'simpan'; ?>"
+                                                type="submit" class="btn btn-primary">Simpan</button>
                                         </div>
                                     </div>
                                 </form>

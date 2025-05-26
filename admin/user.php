@@ -1,14 +1,14 @@
 <?php
 include 'config/koneksi.php';
 
-$query = mysqli_query($config, 'SELECT * FROM users ORDER BY id DESC');
+$query = mysqli_query($config, "SELECT * FROM users WHERE deleted_at = 0 ORDER BY id DESC");
 $row = mysqli_fetch_all($query, MYSQLI_ASSOC);
 // print_r($row);
 // die;
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
-    $query = mysqli_query($config, "DELETE FROM users WHERE id = '$id'");
-    header("location:user.php?hapus=berhasil");
+    $query = mysqli_query($config, "DELETE FROM users WHERE id='$id'");
+    header("location:?page=user&hapus=berhasil");
 }
 
 ?>
@@ -27,7 +27,7 @@ if (isset($_GET['delete'])) {
 
 <body>
     <div class="wrapper">
-        <?php include 'config/koneksi.php'; ?>
+        <?php include 'inc/header.php'; ?>
         <div class="content mt-5">
             <div class="container">
                 <div class="row">
@@ -39,7 +39,7 @@ if (isset($_GET['delete'])) {
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <div align="right" class="mb-3">
-                                        <a href="tambah-user.php" class="btn btn-primary">Tambah</a>
+                                        <a href="?page=tambah-user" class=" btn btn-primary">Tambah</a>
                                     </div>
                                     <table class="table table-bordered table-striped">
                                         <thead>
@@ -51,15 +51,17 @@ if (isset($_GET['delete'])) {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php foreach ($row as $key => $data): ?>
+                                            <?php $i = 1;
+                                            foreach ($row as $key => $data): ?>
                                                 <tr>
+                                                    <!-- <td><?= $i++ ?></td> -->
                                                     <td><?= $key + 1 ?></td>
                                                     <td><?= $data['name'] ?></td>
                                                     <td><?= $data['email'] ?></td>
                                                     <td>
-                                                        <a href="tambah-user.php?edit=<?php echo $data['id'] ?>" class="btn btn-success btn-sm">Edit</a>
+                                                        <a href="?page=tambah-user&edit=<?php echo $data['id'] ?>" class="btn btn-success btn-sm">Edit</a>
                                                         <a onclick="return confirm('Are You Sure??')"
-                                                            href="user.php?delete=<?php echo $data['id'] ?>" class="btn btn-warning btn-sm">Delete</a>
+                                                            href="?page=user&delete=<?php echo $data['id'] ?>" class="btn btn-warning btn-sm">Delete</a>
                                                     </td>
                                                 </tr>
                                             <?php endforeach ?>
