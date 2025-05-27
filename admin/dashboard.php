@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 ob_start();
 
@@ -9,7 +10,6 @@ if (!$_name) {
     exit;
 }
 include 'config/koneksi.php';
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,7 +89,7 @@ include 'config/koneksi.php';
             ]
         });
 
-        $('#duar').DataTable();
+        $('#table').DataTable();
     </script>
 </body>
 

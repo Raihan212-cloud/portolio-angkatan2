@@ -1,3 +1,8 @@
+<?php
+
+$id_level = isset($_SESSION['LEVEL']) ? $_SESSION['LEVEL'] : '';
+?>
+
 <header class="shadow">
     <nav class="navbar navbar-expand-lg bg-body-white">
         <div class="container-fluid">
@@ -16,16 +21,23 @@
                             Page
                         </a>
                         <ul class="dropdown-menu">
+                            <?php if ($id_level == 1): ?>
+                                <li><a class="dropdown-item" href="?page=user">User</a></li>
+                            <?php endif ?>
                             <li><a class="dropdown-item" href="?page=team">Team</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="?page=Edit-Home">Edit Home</a></li>
+                            <li><a class="dropdown-item" href="?page=Edit-Home">Edit About</a></li>
+                            <li><a class="dropdown-item" href="?page=Edit-Home">Edit Blog</a></li>
+                            <li><a class="dropdown-item" href="?page=Edit-Home">Edit Portofolio</a></li>
+                            <li><a class="dropdown-item" href="?page=Edit-Home">Edit Contact</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
                             <li><a class="dropdown-item" href="?page=contact">Contact</a></li>
                         </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="?page=user">User</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="?page=manage-profile">Profile</a>
